@@ -1,71 +1,33 @@
-import socket,secrets,string,requests,base64,hashlib,os,urllib.parse
-G="\033[92m";C="\033[96m";Y="\033[93m";W="\033[97m";R="\033[0m"
-
-def banner():
-    os.system('clear')
-    print(f"{G}  ███████╗███████╗██████╗")
-    print(f"  ╚══███╔╝██╔════╝██╔══██╗")
-    print(f"{C}   💉 ZEDK ULTRA v5.1 - 12 TOOLS 💉")
-    print(f"   By Zohair | Constantine 🇩🇿")
-    print(f"{Y}   ═══════════════════════{R}")
-
-def gen(l=18):
-    s=string.ascii_letters+string.digits+"!@#$%^&*"
-    return ''.join(secrets.choice(s) for _ in range(l))
-
-def strength(p):
-    sc=0
-    if len(p)>=8: sc+=1
-    if any(c.isupper() for c in p): sc+=1
-    if any(c.isdigit() for c in p): sc+=1
-    if any(c in "!@#$%" for c in p): sc+=1
-    return sc
-
+import socket,secrets,string,requests,base64,hashlib,os,urllib.parse as ul
+G="\033[92m";C="\033[96m";Y="\033[93m";R="\033[0m"
+def b():
+ os.system('clear')
+ print(f"{G} ZEDK ULTRA v5.3 {C}💉 12 TOOLS\n{Y} ==============={R}")
+def gen():
+ import string as st
+ s=st.ascii_letters+st.digits+"!@#$%"
+ return ''.join(secrets.choice(s) for _ in range(16))
 def scan():
-    print(f"{C}\n [SCAN 127.0.0.1 20-200]{R}")
-    for pt in range(20,201):
-        sk=socket.socket()
-        sk.settimeout(0.2)
-        if sk.connect_ex(('127.0.0.1',pt))==0:
-            print(f"  {G}Port {pt} OPEN{R}")
-        sk.close()
-
-def check_site():
-    u=input(f"{Y}Site: {R}").strip()
-    if not u.startswith("http"):
-        u="https://"+u
-    try:
-        r=requests.get(u,timeout=6)
-        print(f" {C}{r.url} -> {r.status_code}{R}")
-        print(f" Server: {r.headers.get('Server','?')}")
-    except Exception as e:
-        print(f" Err {e}")
-
-def b64_tool():
-    c=input(" 1.Encode 2.Decode 3.SHA256 > ")
-    if c=='1':
-        txt=input(" Text: ")
-        print(base64.b64encode(txt.encode()).decode())
-    elif c=='2':
-        try:
-            txt=input(" B64: ")
-            print(base64.b64decode(txt).decode())
-        except:
-            print(" Invalid")
-    else:
-        txt=input(" Text: ")
-        print(hashlib.sha256(txt.encode()).hexdigest())
-
-def url_tool():
-    c=input(" 1.Encode 2.Decode > ")
-    if c=='1':
-        print(urllib.parse.quote(input(" URL: ")))
-    else:
-        print(urllib.parse.unquote(input(" Encoded: ")))
-
-def my_ip():
-    try:
-        r=requests.get("https://api.ipify.org?format=json",timeout=5).json()
-        print(f" {G}IP: {r['ip']}{R}")
-        d=requests.get(f"https://ipinfo.io/{r['ip']}/json",timeout=5).json()
-       
+ for p in range(20,101):
+  s=socket.socket();s.settimeout(0.2)
+  if s.connect_ex(('127.0.0.1',p))==0: print(f"{G} {p} OPEN{R}")
+  s.close()
+def ip():
+ try: print(requests.get("https://api.ipify.org",timeout=4).text)
+ except: print(" No net")
+def dns(d):
+ try: print(socket.gethostbyname(d))
+ except: print(" Not found")
+b()
+while True:
+ print("\n 1.Gen 2.Stren 3.Scan 4.Site 5.B64 6.URL 7.IP 8.DNS 9.Head 10.Hex 11.Info 12.Exit")
+ c=input(f"{Y}Z > {R}")
+ if c=='1': print(f"{G}{gen()}{R}")
+ elif c=='2':
+  p=input(" Pass: ");print(f" Score: {sum([len(p)>=8,any(x.isupper() for x in p),any(x.isdigit() for x in p),any(x in '!@#$%' for x in p)])}/4")
+ elif c=='3': scan()
+ elif c=='4':
+  u=input(" Site: "); 
+  if not u.startswith("http"): u="https://"+u
+  try: print(requests.get(u,timeout=5).status_code)
+ 
