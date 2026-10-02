@@ -10,3 +10,4 @@ Medical & Security Toolkit by Zohair 🇩🇿
 5 - Encoder
 
 Run: python main.py
+Direct link to tool: main.py
