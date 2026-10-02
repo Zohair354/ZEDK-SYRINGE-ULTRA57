@@ -93,4 +93,3 @@ while True:
     else:
         print("  Invalid choice")
 EOF
-python main.py
