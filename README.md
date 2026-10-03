@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ZEDK_profile_black.jpg" width="250"/>
+  <img src="ZEDK_circular_badge_DZ_PS.png" width="250"/>
 </p> 💉 ZEDK ULTRA v7.0 - 40 TOOLS
 By Zohair | Constantine 🇩🇿 | Ethical Hacking Toolkit
 Python
