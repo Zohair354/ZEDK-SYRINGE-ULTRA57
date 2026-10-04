@@ -1,6 +1,7 @@
-import socket,secrets,string,requests,base64,hashlib,os,urllib.parse,re,random as Rr,ssl,ipaddress,shodan,requests,string  
+import socket,secrets,string,requests,base64,hashlib,os,urllib.parse,re,random as Rr,ssl,ipaddress,shodan
+from dotenv import load_dotenv;load_dotenv()
 G="\033[92m";C="\033[96m";Y="\033[93m";W="\033[97m";Z="\033[0m"
-b=lambda: (os.system('clear'),print(f"{G} ZEDK v7 40T {C}Zohair DZ{Z}"));g=lambda l=16:''.join(secrets.choice(string.ascii_letters+string.digits+"!@#$%")for _ in range(l))
+b=lambda: (os.system('clear'),print(f"{G} ZEDK v7 41T {C}Zohair DZ{Z}"));g=lambda l=16:''.join(secrets.choice(string.ascii_letters+string.digits+"!@#$%")for _ in range(l))
 s=lambda p:sum([len(p)>=8,any(c.isupper()for c in p),any(c.isdigit()for c in p),any(c in"!@#$%"for c in p)])
 def sc(a=1,b2=200,h='127.0.0.1'):
  for pt in range(a,b2+1):
@@ -28,9 +29,19 @@ def pwn():
  p=input("Pass:");h=hashlib.sha1(p.encode()).hexdigest().upper();a,b=h[:5],h[5:]
  try:r=requests.get(f"https://api.pwnedpasswords.com/range/{a}",timeout=5).text;print("PWNED!"if b in r else"Safe")
  except:print("No net")
+def sh():
+ try:
+  k=os.getenv("SHODAN_API_KEY") or input("API Key: ").strip()
+  if not k:print("No key");return
+  a=shodan.Shodan(k);q=input("Query (ex: country:DZ apache): ").strip()
+  if not q:return
+  r=a.search(q);print(f"{G}Total:{r['total']}{Z}")
+  for m in r['matches'][:10]:
+   print(f"{m['ip_str']}:{m['port']} {m.get('org','')[:20]} {m.get('location',{}).get('country_code','')}")
+ except Exception as e:print(f"Err:{e}")
 b()
 while True:
- print(f"\n{W}1.GEN 2.STR 3.SC 4.SITE 5.B64 6.URL 7.IP 8.DNS 9.HDR 10.BIN 11.SUB 12.EML 13.HID 14.FH 15.BAN 16.FAKE 17.MAC 18.EXP 19.ROB 20.MAP 21.WHO 22.RDNS 23.METH 24.SSL 25.B32 26.MOR 27.JWT 28.COOK 29.UA 30.ST 31.PWN 32.SCF 33.PING 34.GEO 35.SECH 36.LINK 37.IPC 38.TOR 39.INFO 40.EXIT{Z}")
+ print(f"\n{W}1.GEN 2.STR 3.SC 4.SITE 5.B64 6.URL 7.IP 8.DNS 9.HDR 10.BIN 11.SUB 12.EML 13.HID 14.FH 15.BAN 16.FAKE 17.MAC 18.EXP 19.ROB 20.MAP 21.WHO 22.RDNS 23.METH 24.SSL 25.B32 26.MOR 27.JWT 28.COOK 29.UA 30.ST 31.PWN 32.SCF 33.PING 34.GEO 35.SECH 36.LINK 37.IPC 38.TOR 39.INFO 40.SHODAN 41.EXIT{Z}")
  c=input(f"{Y}> {Z}")
  if c=='1':print(g())
  elif c=='2':print(f"{s(input('P:'))}/4")
@@ -106,5 +117,6 @@ while True:
   try:print(list(ipaddress.ip_network(input("CIDR:").strip(),strict=False).hosts())[:10])
   except Exception as e:print(e)
  elif c=='38':print(requests.get("https://check.torproject.org/torbulkexitlist",timeout=5).text.find(input("IP:"))>=0)
- elif c=='39':print(f"{C}v7 40T Zohair DZ Ethical{Z}")
- elif c=='40':break
+ elif c=='39':print(f"{C}v7 41T Zohair DZ Ethical - 40=SHODAN{Z}")
+ elif c=='40':sh()
+ elif c=='41':break
