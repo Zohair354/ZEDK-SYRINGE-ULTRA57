@@ -1,4 +1,4 @@
-import socket,secrets,string,requests,base64,hashlib,os,urllib.parse,re,random as Rr,ssl,ipaddress
+import socket,secrets,string,requests,base64,hashlib,os,urllib.parse,re,random as Rr,ssl,ipaddress,shodan,requests,string  
 G="\033[92m";C="\033[96m";Y="\033[93m";W="\033[97m";Z="\033[0m"
 b=lambda: (os.system('clear'),print(f"{G} ZEDK v7 40T {C}Zohair DZ{Z}"));g=lambda l=16:''.join(secrets.choice(string.ascii_letters+string.digits+"!@#$%")for _ in range(l))
 s=lambda p:sum([len(p)>=8,any(c.isupper()for c in p),any(c.isdigit()for c in p),any(c in"!@#$%"for c in p)])
